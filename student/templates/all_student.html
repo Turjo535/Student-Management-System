@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hotel List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            
+        }
+        .container {
+            width: 80%;
+            margin: auto;
+            overflow: hidden;
+        }
+        table {
+            width: 100%;
+            margin: 20px 0;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+    </style>
+</head>
+<body>
+    {% extends 'base.html' %}
+    {% block content %}
+    <div class="container">
+        <h1>Student List</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Phone Number</th>
+                    <th>Course</th>
+                    <th>Update</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for student in data %}
+                    <tr>
+                        <td>{{ student.name }}</td>
+                        <td>{{ student.email }}</td>
+                        <td>{{ student.phone }}</td>
+                        <td>{{ student.course }}</td>
+                        <td>
+                            
+                                
+                            <form action="{% url 'update' student.id %}" method="post" style="display:inline;">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-success" onclick="return confirm('Are you sure you want to delete this hotel?');">
+                                  Update
+                                </button>
+                              </form>
+                           
+                            
+                        </td>
+                        <td>
+                            
+                            
+                                 
+                            <form action="{% url 'delete' student.id %}" method="post" style="display:inline;">
+                                {% csrf_token %}
+                                
+                                <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this hotel?');">
+                                  Delete
+                                </button>
+                              </form>
+                           
+                            
+                        </td>
+                        
+
+                        
+                    </tr>
+                    
+                {% endfor %}
+
+            </tbody>
+        </table>
+    </div>
+    {% endblock %}
+</body>
+</html>
